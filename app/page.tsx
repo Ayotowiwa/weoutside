@@ -1,26 +1,53 @@
-import RecommendationCard from "@/components/RecommendationCard";
-import { recommendations } from "@/lib/recommendations";
+import Navbar from "@/components/Navbar";
+import HeroBanner from "@/components/HeroBanner";
+import CategoriesSection from "@/components/CategoriesSection";
+import RecommendationsGrid from "@/components/RecommendationsGrid";
+import PromoCard from "@/components/PromoCard";
+import { homepageData } from "@/lib/homepageData";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">WeOutside</h1>
-          <p className="text-gray-600 mt-1">Discover events and places around you</p>
-        </div>
-      </header>
+    <div className="min-h-screen bg-white">
+      {/* 1. Navbar */}
+      <Navbar />
 
-      {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {recommendations.map((item) => (
-            <RecommendationCard key={item.id} item={item} />
-          ))}
+      {/* 2. Hero Banner */}
+      <HeroBanner
+        title={homepageData.hero.title}
+        subtitle={homepageData.hero.subtitle}
+        image={homepageData.hero.image}
+        ctaText={homepageData.hero.ctaText}
+      />
+
+      {/* 3. Categories Section */}
+      <CategoriesSection categories={homepageData.categories} />
+
+      {/* 4. First Recommendations Grid */}
+      <div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-4">
+          <h2 className="text-2xl font-bold text-gray-900">Featured Experiences</h2>
         </div>
-      </main>
+        <RecommendationsGrid items={homepageData.featuredRecommendations} />
+      </div>
+
+      {/* 5. Promo Card */}
+      <PromoCard
+        title={homepageData.promo.title}
+        description={homepageData.promo.description}
+        image={homepageData.promo.image}
+        ctaText={homepageData.promo.ctaText}
+      />
+
+      {/* 6. Second Recommendations Grid */}
+      <div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-4">
+          <h2 className="text-2xl font-bold text-gray-900">Explore More</h2>
+        </div>
+        <RecommendationsGrid items={homepageData.moreRecommendations} />
+      </div>
+
+      {/* Footer Padding */}
+      <div className="h-20"></div>
     </div>
   );
 }
