@@ -1,4 +1,11 @@
-export const homepageData = {
+import { Recommendation } from "@/lib/recommendations";
+
+export const homepageData: {
+  hero: { title: string; subtitle: string; image: string; ctaText: string };
+  categories: { id: string; name: string; image: string }[];
+  promo: { title: string; description: string; image: string; ctaText: string };
+  allRecommendations: Recommendation[];
+} = {
   hero: {
     title: "Discover Amazing Events",
     subtitle: "Find the best outdoor events and places happening near you every day",
@@ -18,13 +25,13 @@ export const homepageData = {
       id: "cat-2",
       name: "Arcade",
       image:
-        "https://images.unsplash.com/photo-1538481143235-c8f91d1b1180?w=200&fit=crop",
+        "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=200&fit=crop",
     },
     {
       id: "cat-3",
       name: "Fun",
       image:
-        "https://images.unsplash.com/photo-1549887534-f3e21da71a83?w=200&fit=crop",
+        "https://images.unsplash.com/photo-1460176449511-ff5fc8e64c35?w=200&fit=crop",
     },
     {
       id: "cat-4",
@@ -42,7 +49,7 @@ export const homepageData = {
       id: "cat-6",
       name: "Kids",
       image:
-        "https://images.unsplash.com/photo-1503454537688-e47cf61d7495?w=200&fit=crop",
+        "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: "cat-7",
@@ -60,7 +67,7 @@ export const homepageData = {
       id: "cat-9",
       name: "Education",
       image:
-        "https://images.unsplash.com/photo-1427504494785-cdedca239f49?w=200&fit=crop",
+        "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=200&fit=crop",
     },
     {
       id: "cat-10",
@@ -90,7 +97,7 @@ export const homepageData = {
       id: "cat-14",
       name: "Shopping",
       image:
-        "https://images.unsplash.com/photo-1555529392-a4a37b2ce75e?w=200&fit=crop",
+        "https://images.unsplash.com/photo-1553531889-56cc480ac5cb?w=200&fit=crop",
     },
     {
       id: "cat-15",
