@@ -1,6 +1,6 @@
 "use client";
 
-import { recommendations } from "@/lib/recommendations";
+import { homepageData } from "@/lib/homepageData";
 import Link from "next/link";
 import { use } from "react";
 
@@ -12,7 +12,7 @@ interface PageProps {
 
 export default function DetailPage({ params }: PageProps) {
   const { id } = use(params);
-  const item = recommendations.find((rec) => rec.id === id);
+  const item = homepageData.allRecommendations.find((rec) => rec.id === id);
 
   if (!item) {
     return (

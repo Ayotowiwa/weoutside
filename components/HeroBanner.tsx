@@ -22,7 +22,7 @@ export default function HeroBanner({
         />
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-black/60 to-transparent"></div>
 
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-center pl-8 sm:pl-12">
