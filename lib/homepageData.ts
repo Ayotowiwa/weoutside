@@ -132,7 +132,7 @@ export const homepageData: {
       description:
         "America's first national park featuring geysers, hot springs, wildlife, and stunning natural landscapes. Old Faithful erupts approximately every 90 minutes.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Outdoors"],
       image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800",
       locationName: "Yellowstone, Wyoming",
       latitude: 44.428,
@@ -145,7 +145,7 @@ export const homepageData: {
       description:
         "Join us for an exciting 3-day hiking adventure through the scenic peaks of the Rocky Mountains. All skill levels welcome with experienced guides leading the way.",
       type: "EVENT",
-      category: "Outdoors",
+      categories: ["Outdoors", "Sports"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Boulder, Colorado",
       latitude: 40.0149,
@@ -159,7 +159,7 @@ export const homepageData: {
       description:
         "Pristine alpine lake surrounded by snow-capped peaks in Banff National Park. Perfect for kayaking, hiking, and nature photography. Lodge offers dining and accommodation.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Outdoors"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Banff, Alberta",
       latitude: 51.3267,
@@ -172,7 +172,7 @@ export const homepageData: {
       description:
         "Experience the breathtaking beauty of the Grand Canyon at sunrise. Includes guided photography tips and breakfast at the rim. Limited to 20 participants.",
       type: "EVENT",
-      category: "Outdoors",
+      categories: ["Outdoors", "Education"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Grand Canyon, Arizona",
       latitude: 36.1069,
@@ -186,7 +186,7 @@ export const homepageData: {
       description:
         "Dramatic coastal scenery with towering cliffs, hidden beaches, and scenic pullouts. Ideal for hiking, photography, and wildlife viewing. Various trails available.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Outdoors"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Big Sur, California",
       latitude: 36.2704,
@@ -199,7 +199,7 @@ export const homepageData: {
       description:
         "Help preserve our beaches while enjoying community. Afternoon cleanup followed by an outdoor BBQ and beach volleyball. Family-friendly event.",
       type: "EVENT",
-      category: "Fun",
+      categories: ["Fun", "Dinner"],
       image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800",
       locationName: "Santa Monica Beach, California",
       latitude: 34.0195,
@@ -213,7 +213,7 @@ export const homepageData: {
       description:
         "Desert landscape featuring unique rock formations and ancient Joshua trees. Perfect for rock climbing, hiking, and stargazing.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Sports"],
       image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800",
       locationName: "Joshua Tree, California",
       latitude: 34.1374,
@@ -226,7 +226,7 @@ export const homepageData: {
       description:
         "Three-day music festival featuring world-class jazz performers. Food trucks, local vendors, and family activities available.",
       type: "EVENT",
-      category: "Music",
+      categories: ["Music", "Fun"],
       image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800",
       locationName: "Central Park, New York",
       latitude: 40.785,
@@ -240,7 +240,7 @@ export const homepageData: {
       description:
         "Iconic park known for giant granite cliffs, waterfalls, and natural beauty. Excellent for hiking, rock climbing, and photography.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Sports"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Yosemite, California",
       latitude: 37.7749,
@@ -253,7 +253,7 @@ export const homepageData: {
       description:
         "Watch elite climbers compete on challenging routes. Beginner workshops available throughout the day. Perfect for climbing enthusiasts of all levels.",
       type: "EVENT",
-      category: "Sports",
+      categories: ["Sports", "Outdoors"],
       image: "https://images.unsplash.com/photo-1517836357463-d25ddfcbf042?w=800",
       locationName: "Denver, Colorado",
       latitude: 39.7392,
@@ -267,7 +267,7 @@ export const homepageData: {
       description:
         "Crystal clear alpine lake surrounded by snow-capped mountains. Perfect for swimming, kayaking, hiking, and winter sports. Year-round resort destination.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Sports"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Lake Tahoe, Nevada",
       latitude: 39.096,
@@ -280,7 +280,7 @@ export const homepageData: {
       description:
         "50+ food trucks serving cuisine from around the world. Live music, cooking demonstrations, and family entertainment. Rain or shine!",
       type: "EVENT",
-      category: "Dinner",
+      categories: ["Dinner", "Fun"],
       image: "https://images.unsplash.com/photo-1555939594-58d7cb561486?w=800",
       locationName: "Downtown Los Angeles",
       latitude: 34.0522,
@@ -294,7 +294,7 @@ export const homepageData: {
       description:
         "Majestic mountain range with turquoise lakes. Outstanding scenery for hiking, mountaineering, and wildlife viewing. Visitor center provides guided tours.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Outdoors"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Jackson, Wyoming",
       latitude: 43.7904,
@@ -307,7 +307,7 @@ export const homepageData: {
       description:
         "Experience the night sky in one of America's darkest spaces. Telescopes provided, astronomer-led tours. Bring blankets and thermoses!",
       type: "EVENT",
-      category: "Education",
+      categories: ["Education", "Outdoors"],
       image: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800",
       locationName: "Death Valley, California",
       latitude: 36.5323,
@@ -321,7 +321,7 @@ export const homepageData: {
       description:
         "Stunning slot canyon famous for its wave-like striated rock walls and light beams. Popular photography destination. Guided tours available.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Education"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Page, Arizona",
       latitude: 36.8626,
@@ -334,7 +334,7 @@ export const homepageData: {
       description:
         "Adventure through underground caves and rivers. Professional guides handle all safety. Wetsuits provided. Great for thrill-seekers!",
       type: "EVENT",
-      category: "Sports",
+      categories: ["Sports", "Outdoors"],
       image: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=800",
       locationName: "Missouri Ozarks",
       latitude: 37.8044,
@@ -348,7 +348,7 @@ export const homepageData: {
       description:
         "Massive waterfalls straddling the border between Canada and USA. Boat tours, hiking trails, and observation platforms. Stunning natural wonder.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Outdoors"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Niagara Falls, New York",
       latitude: 43.0896,
@@ -361,7 +361,7 @@ export const homepageData: {
       description:
         "3-day yoga and meditation retreat in nature. Daily classes, healthy meals, spa treatments. Indoor and outdoor sessions available.",
       type: "EVENT",
-      category: "Wellness",
+      categories: ["Wellness", "Outdoors"],
       image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800",
       locationName: "Sedona, Arizona",
       latitude: 34.8697,
@@ -375,7 +375,7 @@ export const homepageData: {
       description:
         "Red rock formations and towering sandstone cliffs. Popular hike: The Narrows. Stunning views and outdoor activities year-round.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Outdoors"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Springdale, Utah",
       latitude: 37.2982,
@@ -388,7 +388,7 @@ export const homepageData: {
       description:
         "Watch indie films under the stars. Outdoor seating, food vendors, and local breweries. Blankets welcome!",
       type: "EVENT",
-      category: "Fun",
+      categories: ["Fun", "Outdoors"],
       image: "https://images.unsplash.com/photo-1489749798305-4fea3ba63d60?w=800",
       locationName: "Mountain View, California",
       latitude: 37.3855,
@@ -402,7 +402,7 @@ export const homepageData: {
       description:
         "High alpine terrain with peaks over 12,000 feet. Scenic Drive Trail of the Gods. Ideal for hiking, photography, and wildlife viewing.",
       type: "PLACE",
-      category: "Parks",
+      categories: ["Parks", "Sports"],
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
       locationName: "Estes Park, Colorado",
       latitude: 40.3569,
@@ -415,7 +415,7 @@ export const homepageData: {
       description:
         "Watch world-class surfers compete in big wave conditions. Beach festival with vendors, live music, and food. Spectating is free!",
       type: "EVENT",
-      category: "Sports",
+      categories: ["Sports", "Fun"],
       image: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800",
       locationName: "Huntington Beach, California",
       latitude: 33.7462,

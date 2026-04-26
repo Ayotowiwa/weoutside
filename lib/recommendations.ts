@@ -5,7 +5,7 @@ export interface Recommendation {
   title: string;
   description: string;
   type: RecommendationType;
-  category: string;
+  categories: string[];
   image: string;
   locationName: string;
   latitude: number;

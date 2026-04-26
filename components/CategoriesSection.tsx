@@ -45,6 +45,8 @@ export default function CategoriesSection({ categories, selectedCategory, onSele
               key={category.id}
               className="flex flex-col items-center cursor-pointer group"
               onClick={() => onSelectCategory(category.name)}
+              role="button"
+              tabIndex={0}
             >
               {/* Circular Image */}
               <div

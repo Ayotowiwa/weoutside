@@ -16,7 +16,7 @@ export default function Home() {
     selectedCategory === null
       ? homepageData.allRecommendations
       : homepageData.allRecommendations.filter(
-          (item) => item.category === selectedCategory
+          (item) => item.categories.includes(selectedCategory)
         );
 
   // Split filtered recommendations into two groups for display
