@@ -3,7 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 
-export default function Navbar() {
+interface NavbarProps {
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
+}
+
+export default function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -20,6 +25,8 @@ export default function Navbar() {
             <input
               type="text"
               placeholder="Search events, places..."
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
               className="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
             />
           </div>

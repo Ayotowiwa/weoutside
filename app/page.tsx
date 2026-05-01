@@ -10,14 +10,24 @@ import { homepageData } from "@/lib/homepageData";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Filter recommendations based on selected category
-  const filteredRecommendations =
-    selectedCategory === null
-      ? homepageData.allRecommendations
-      : homepageData.allRecommendations.filter(
-          (item) => item.categories.includes(selectedCategory)
-        );
+  // Combined filter logic: category AND search
+  const filteredRecommendations = homepageData.allRecommendations.filter((item) => {
+    // Check category filter
+    const matchesCategory =
+      selectedCategory === null ||
+      item.categories.includes(selectedCategory);
+
+    // Check search filter (match title, description, or location)
+    const matchesSearch =
+      searchQuery === "" ||
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.locationName.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
 
   // Split filtered recommendations into two groups for display
   const firstBatch = filteredRecommendations.slice(0, 9);
@@ -26,7 +36,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* 1. Navbar */}
-      <Navbar />
+      <Navbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
       {/* 2. Hero Banner */}
       <HeroBanner
@@ -44,17 +54,28 @@ export default function Home() {
       />
 
       {/* 4. First Recommendations Grid (Mixed EVENTS & PLACES) */}
-      <div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-4">
-          <h2 className="text-2xl font-bold text-gray-900">Featured Experiences</h2>
+      {filteredRecommendations.length === 0 ? (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-16">
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">No results found</p>
+            <p className="text-gray-400 text-sm mt-2">
+              Try adjusting your filters or search terms
+            </p>
+          </div>
         </div>
-        <RecommendationsGrid items={firstBatch} />
-      </div>
+      ) : (
+        <>
+          <div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-4">
+              <h2 className="text-2xl font-bold text-gray-900">Featured Experiences</h2>
+            </div>
+            <RecommendationsGrid items={firstBatch} />
+          </div>
 
-      {/* 5. Promo Cards (Side by Side) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {homepageData.promos.map((promo, index) => (
+          {/* 5. Promo Cards (Side by Side) */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {homepageData.promos.map((promo, index) => (
             <div key={index} className="relative rounded-lg overflow-hidden h-48">
               {/* Background Image */}
               <img
@@ -90,6 +111,8 @@ export default function Home() {
         </div>
         <RecommendationsGrid items={secondBatch} />
       </div>
+        </>
+      )}
 
       {/* 7. Footer */}
       <Footer />
