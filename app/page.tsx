@@ -29,9 +29,28 @@ export default function Home() {
     return matchesCategory && matchesSearch;
   });
 
-  // Split filtered recommendations into two groups for display
-  const firstBatch = filteredRecommendations.slice(0, 9);
-  const secondBatch = filteredRecommendations.slice(9);
+  // Step 1: Filter valid (non-expired) events and sort by startDate
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const getTimeSafe = (date?: string) =>
+    date ? new Date(date).getTime() : Infinity;
+
+  const validEvents = [...filteredRecommendations]
+    .filter(
+      (item) =>
+        item.type === "EVENT" &&
+        (!item.endDate || new Date(item.endDate) >= today)
+    )
+    .sort((a, b) => getTimeSafe(a.startDate) - getTimeSafe(b.startDate));
+
+  // Step 2: Featured events (first 6)
+  const featuredEvents = validEvents.slice(0, 6);
+
+  // Step 3: Remaining items = leftover events + all places
+  const remainingEvents = validEvents.slice(6);
+  const allPlaces = filteredRecommendations.filter((item) => item.type === "PLACE");
+  const remainingItems = [...remainingEvents, ...allPlaces];
 
   return (
     <div className="min-h-screen bg-white">
@@ -69,7 +88,7 @@ export default function Home() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-4">
               <h2 className="text-2xl font-bold text-gray-900">Featured Experiences</h2>
             </div>
-            <RecommendationsGrid items={firstBatch} />
+            <RecommendationsGrid items={featuredEvents} />
           </div>
 
           {/* 5. Promo Cards (Side by Side) */}
@@ -109,7 +128,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-4">
           <h2 className="text-2xl font-bold text-gray-900">Explore More</h2>
         </div>
-        <RecommendationsGrid items={secondBatch} />
+        <RecommendationsGrid items={remainingItems} />
       </div>
         </>
       )}
