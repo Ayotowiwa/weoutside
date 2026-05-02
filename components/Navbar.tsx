@@ -27,7 +27,7 @@ export default function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
               placeholder="Search events, places..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-black"
             />
           </div>
 

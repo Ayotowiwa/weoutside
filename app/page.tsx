@@ -14,10 +14,10 @@ export default function Home() {
 
   // Combined filter logic: category AND search
   const filteredRecommendations = homepageData.allRecommendations.filter((item) => {
-    // Check category filter
+    // Check category filter (case-insensitive)
     const matchesCategory =
       selectedCategory === null ||
-      item.categories.includes(selectedCategory);
+      item.categories.some((cat) => cat.toLowerCase() === selectedCategory.toLowerCase());
 
     // Check search filter (match title, description, or location)
     const matchesSearch =
