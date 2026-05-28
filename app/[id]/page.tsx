@@ -67,7 +67,7 @@ export default function DetailPage({ params }: PageProps) {
           <h1 className="text-4xl font-bold text-gray-900 mb-2">{item.title}</h1>
 
           {/* Location */}
-          <p className="text-lg text-gray-600 mb-6">📍 {item.locationName}</p>
+          <p className="text-lg text-gray-600 mb-6">{item.locationName}</p>
 
           {/* Get Directions Button */}
           <button
@@ -77,7 +77,7 @@ export default function DetailPage({ params }: PageProps) {
             }}
             className="mb-8 px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
-            📍 Get Directions
+            Get Directions
           </button>
 
           {/* Date or Hours */}
@@ -85,7 +85,7 @@ export default function DetailPage({ params }: PageProps) {
             {item.type === "EVENT" && item.startDate && (
               <div>
                 <p className="text-gray-700 font-medium">
-                  📅 {new Date(item.startDate).toLocaleDateString()}
+                  {new Date(item.startDate).toLocaleDateString()}
                 </p>
                 {item.endDate && item.startDate !== item.endDate && (
                   <p className="text-gray-700 font-medium">
@@ -97,7 +97,7 @@ export default function DetailPage({ params }: PageProps) {
 
             {item.type === "PLACE" && item.openingHours && (
               <p className="text-gray-700 font-medium">
-                🕐 {item.openingHours}
+                {item.openingHours}
               </p>
             )}
           </div>
