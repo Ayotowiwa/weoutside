@@ -10,7 +10,7 @@ export async function getHomepageData(): Promise<Recommendation[]> {
   try {
     const [events, places] = await Promise.all([getEvents(), getPlaces()]);
 
-    // Convert events to Recommendation format
+
     // Convert events to Recommendation format
     const recommendedEvents: Recommendation[] = events.map((event) => {
       let categories: string[] = [];
@@ -37,7 +37,7 @@ export async function getHomepageData(): Promise<Recommendation[]> {
       };
     });
 
-    // Convert places to Recommendation format
+  
     // Convert places to Recommendation format
     const recommendedPlaces: Recommendation[] = places.map((place) => {
       let categories: string[] = [];
