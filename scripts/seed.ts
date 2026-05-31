@@ -120,7 +120,7 @@ async function seedEvents(
   const transformedEvents = events.map((item) => ({
     title: item.title,
     description: item.description,
-    category: item.categories[0] || null,
+    category: item.categories.length > 0 ? JSON.stringify(item.categories) : null,
     image_url: item.image,
     start_time: item.startDate || null,
     end_time: item.endDate || null,
@@ -176,7 +176,7 @@ async function seedPlaces(
   const transformedPlaces = places.map((item) => ({
     name: item.title,
     description: item.description,
-    category: item.categories[0] || null,
+    category: item.categories.length > 0 ? JSON.stringify(item.categories) : null,
     image_url: item.image,
     location_name: item.locationName,
     opening_hours: item.openingHours || null,

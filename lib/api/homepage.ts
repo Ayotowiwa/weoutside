@@ -11,33 +11,57 @@ export async function getHomepageData(): Promise<Recommendation[]> {
     const [events, places] = await Promise.all([getEvents(), getPlaces()]);
 
     // Convert events to Recommendation format
-    const recommendedEvents: Recommendation[] = events.map((event) => ({
-      id: event.id,
-      title: event.title,
-      description: event.description,
-      type: "EVENT",
-      categories: event.category ? [event.category] : [],
-      image: event.image_url,
-      locationName: event.location_name,
-      latitude: event.latitude,
-      longitude: event.longitude,
-      startDate: event.start_time || undefined,
-      endDate: event.end_time || undefined,
-    }));
+    // Convert events to Recommendation format
+    const recommendedEvents: Recommendation[] = events.map((event) => {
+      let categories: string[] = [];
+      if (event.category) {
+        try {
+          categories = JSON.parse(event.category);
+        } catch {
+          // Fallback if not valid JSON
+          categories = [event.category];
+        }
+      }
+      return {
+        id: event.id,
+        title: event.title,
+        description: event.description,
+        type: "EVENT",
+        categories,
+        image: event.image_url,
+        locationName: event.location_name,
+        latitude: event.latitude,
+        longitude: event.longitude,
+        startDate: event.start_time || undefined,
+        endDate: event.end_time || undefined,
+      };
+    });
 
     // Convert places to Recommendation format
-    const recommendedPlaces: Recommendation[] = places.map((place) => ({
-      id: place.id,
-      title: place.name,
-      description: place.description,
-      type: "PLACE",
-      categories: place.category ? [place.category] : [],
-      image: place.image_url,
-      locationName: place.location_name,
-      latitude: place.latitude,
-      longitude: place.longitude,
-      openingHours: place.opening_hours || undefined,
-    }));
+    // Convert places to Recommendation format
+    const recommendedPlaces: Recommendation[] = places.map((place) => {
+      let categories: string[] = [];
+      if (place.category) {
+        try {
+          categories = JSON.parse(place.category);
+        } catch {
+          // Fallback if not valid JSON
+          categories = [place.category];
+        }
+      }
+      return {
+        id: place.id,
+        title: place.name,
+        description: place.description,
+        type: "PLACE",
+        categories,
+        image: place.image_url,
+        locationName: place.location_name,
+        latitude: place.latitude,
+        longitude: place.longitude,
+        openingHours: place.opening_hours || undefined,
+      };
+    });
 
     // Combine and return
     return [...recommendedEvents, ...recommendedPlaces];
