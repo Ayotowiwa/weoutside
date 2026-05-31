@@ -1,140 +1,38 @@
-"use client";
-
-import { useState } from "react";
-import Navbar from "@/components/Navbar";
-import HeroBanner from "@/components/HeroBanner";
-import CategoriesSection from "@/components/CategoriesSection";
-import RecommendationsGrid from "@/components/RecommendationsGrid";
-import Footer from "@/components/Footer";
+import { getHomepageData } from "@/lib/api/homepage";
 import { homepageData } from "@/lib/homepageData";
+import HomeContent from "@/app/HomeContent";
 
-export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState<string>("");
+export default async function Home() {
+  let recommendations = homepageData.allRecommendations;
 
-  // Combined filter logic: category AND search
-  const filteredRecommendations = homepageData.allRecommendations.filter((item) => {
-    // Check category filter (case-insensitive)
-    const matchesCategory =
-      selectedCategory === null ||
-      item.categories.some((cat) => cat.toLowerCase() === selectedCategory.toLowerCase());
-
-    // Check search filter (match title, description, or location)
-    const matchesSearch =
-      searchQuery === "" ||
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.locationName.toLowerCase().includes(searchQuery.toLowerCase());
-
-    return matchesCategory && matchesSearch;
-  });
-
-  // Step 1: Filter valid (non-expired) events and sort by startDate
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const getTimeSafe = (date?: string) =>
-    date ? new Date(date).getTime() : Infinity;
-
-  const validEvents = [...filteredRecommendations]
-    .filter(
-      (item) =>
-        item.type === "EVENT" &&
-        (!item.endDate || new Date(item.endDate) >= today)
-    )
-    .sort((a, b) => getTimeSafe(a.startDate) - getTimeSafe(b.startDate));
-
-  // Step 2: Featured events (first 6)
-  const featuredEvents = validEvents.slice(0, 6);
-
-  // Step 3: Remaining items = leftover events + all places
-  const remainingEvents = validEvents.slice(6);
-  const allPlaces = filteredRecommendations.filter((item) => item.type === "PLACE");
-  const remainingItems = [...remainingEvents, ...allPlaces];
+  // Attempt to fetch data from Supabase with fallback to mock data
+  try {
+    const supabaseData = await getHomepageData();
+    if (supabaseData && supabaseData.length > 0) {
+      console.log(
+        ` Successfully loaded ${supabaseData.length} items from Supabase`
+      );
+      recommendations = supabaseData;
+    } else {
+      console.warn(
+        "  Supabase returned empty data, falling back to mock data"
+      );
+      recommendations = homepageData.allRecommendations;
+    }
+  } catch (error) {
+    console.error(
+      " Error fetching from Supabase, falling back to mock data:",
+      error
+    );
+    recommendations = homepageData.allRecommendations;
+  }
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* 1. Navbar */}
-      <Navbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-
-      {/* 2. Hero Banner */}
-      <HeroBanner
-        title={homepageData.hero.title}
-        subtitle={homepageData.hero.subtitle}
-        image={homepageData.hero.image}
-        ctaText={homepageData.hero.ctaText}
-      />
-
-      {/* 3. Categories Section */}
-      <CategoriesSection
-        categories={homepageData.categories}
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-      />
-
-      {/* 4. First Recommendations Grid (Mixed EVENTS & PLACES) */}
-      {filteredRecommendations.length === 0 ? (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-16">
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No results found</p>
-            <p className="text-gray-400 text-sm mt-2">
-              Try adjusting your filters or search terms
-            </p>
-          </div>
-        </div>
-      ) : (
-        <>
-          <div>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-4">
-              <h2 className="text-2xl font-bold text-gray-900">Featured Experiences</h2>
-            </div>
-            <RecommendationsGrid items={featuredEvents} />
-          </div>
-
-          {/* 5. Promo Cards (Side by Side) */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {homepageData.promos.map((promo, index) => (
-            <div key={index} className="relative rounded-lg overflow-hidden h-48">
-              {/* Background Image */}
-              <img
-                src={promo.image}
-                alt={promo.title}
-                className="w-full h-full object-cover"
-              />
-
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/40"></div>
-
-              {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-8">
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">
-                  {promo.title}
-                </h3>
-                <p className="text-gray-100 mb-4 max-w-md text-sm sm:text-base">
-                  {promo.description}
-                </p>
-                <button className="w-fit px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors text-sm">
-                  {promo.ctaText}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 6. Second Recommendations Grid (Mixed EVENTS & PLACES) */}
-      <div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-4">
-          <h2 className="text-2xl font-bold text-gray-900">Explore More</h2>
-        </div>
-        <RecommendationsGrid items={remainingItems} />
-      </div>
-        </>
-      )}
-
-      {/* 7. Footer */}
-      <Footer />
-    </div>
+    <HomeContent
+      recommendations={recommendations}
+      hero={homepageData.hero}
+      categories={homepageData.categories}
+      promos={homepageData.promos}
+    />
   );
 }
