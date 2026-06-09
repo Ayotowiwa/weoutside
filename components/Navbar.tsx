@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { getUser, signOut } from "@/lib/auth/authActions";
+import type { User } from "@supabase/supabase-js";
 
 interface NavbarProps {
   searchQuery: string;
@@ -10,6 +13,34 @@ interface NavbarProps {
 
 export default function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  // Check authentication status on component mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      setIsLoading(true);
+      const { data, error } = await getUser();
+      if (!error && data) {
+        setUser(data);
+      } else {
+        setUser(null);
+      }
+      setIsLoading(false);
+    };
+
+    checkAuth();
+  }, []);
+
+  // Handle logout
+  const handleLogout = async () => {
+    const { error } = await signOut();
+    if (!error) {
+      setUser(null);
+      router.push("/");
+    }
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
@@ -42,9 +73,22 @@ export default function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
             <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
               About
             </Link>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
-              Sign In
-            </button>
+            {isLoading ? (
+              <button disabled className="px-4 py-2 bg-gray-400 text-white rounded-lg font-medium cursor-not-allowed">
+                Loading...
+              </button>
+            ) : user ? (
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link href="/login" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
+                Sign In
+              </Link>
+            )}
           </div>
 
           {/* Mobile: Hamburger Menu */}
@@ -80,9 +124,22 @@ export default function Navbar({ searchQuery, onSearchChange }: NavbarProps) {
             <Link href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-50">
               About
             </Link>
-            <button className="w-full text-left px-4 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 mt-2">
-              Sign In
-            </button>
+            {isLoading ? (
+              <button disabled className="w-full text-left px-4 py-2 bg-gray-400 text-white font-medium cursor-not-allowed mt-2">
+                Loading...
+              </button>
+            ) : user ? (
+              <button
+                onClick={handleLogout}
+                className="w-full text-left px-4 py-2 bg-red-600 text-white font-medium hover:bg-red-700 mt-2"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link href="/login" className="block w-full text-left px-4 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 mt-2">
+                Sign In
+              </Link>
+            )}
           </div>
         )}
       </div>
